@@ -16,5 +16,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\AKAppBL\AKAppBL.csproj" />
+    <ProjectReference Include="..\AKAppDL\AKAppDL.csproj" />
+    <ProjectReference Include="..\AKAppModels\AKAppModels.csproj" />
+  </ItemGroup>
 </Project>
