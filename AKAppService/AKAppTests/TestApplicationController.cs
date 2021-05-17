@@ -1,9 +1,13 @@
-﻿/*using System;
+﻿using System;
 using Xunit;
 using AKAppService.Controllers;
 using AKAppModels;
 using AKAppBL;
 using Moq;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace AKAppTests
 {
     public class TestApplicationController
@@ -28,13 +32,12 @@ namespace AKAppTests
             application.Location = new Location();
             application.Location.Address = new Address();
 
-            var result = controller.AddAnAppAsync();
+            var result = controller.AddAnAppAsync(application);
 
-                //Assert
+            //Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<HeroIndexVM>>(viewResult.ViewData.Model);
-            Assert.Equal(2, model.Count());
+            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(viewResult.ViewData.Model);
+            Assert.Equal(1, model.Count());
         }
     }
 }
-*/

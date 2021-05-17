@@ -7,6 +7,7 @@ namespace AKAppModels
         private string fileName;
         private int applicationID;
         private int blobID;
+        private int id;
         public string FileName
         {
             get { return fileName; }
@@ -45,5 +46,19 @@ namespace AKAppModels
                 applicationID = value;
             }
         }
+
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentNullException();
+                }
+                id = value;
+            }
+        }
+
     }
 }

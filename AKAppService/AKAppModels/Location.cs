@@ -6,6 +6,7 @@ namespace AKAppModels
         private string name;
         private int cost;
         private bool rentOrBuy;
+        private int id;
         private Address address;
         public string Name
         {
@@ -40,5 +41,19 @@ namespace AKAppModels
             }
         }
         public Address Address { get; set; }
+
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentNullException();
+                }
+                id = value;
+            }
+        }
+
     }
 }

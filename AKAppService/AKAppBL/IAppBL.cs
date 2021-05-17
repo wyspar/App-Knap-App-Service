@@ -1,4 +1,4 @@
-﻿namespace AKAppTests
+﻿namespace AKAppBL
 {
     public interface IAppBL
     {
