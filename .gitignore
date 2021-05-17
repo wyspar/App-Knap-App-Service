@@ -659,3 +659,4 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,csharp,aspnetcore
 AKAppService/AKAppService/appsettings.json
 appsettings.json
+AKAppService/AKAppService/appsettings.json
