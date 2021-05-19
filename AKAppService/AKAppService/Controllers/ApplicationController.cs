@@ -25,9 +25,9 @@ namespace AKAppService.Controllers
         {
             try
             {
-                await this.appBL.AddAnAppAsync(application);
+                Application newApp = await this.appBL.AddAnAppAsync(application);
                 Log.Logger.Information("New application created: " + $"{application.ID}");
-                return CreatedAtAction("AddedApplication", application);
+                return CreatedAtAction("AddAnApp", newApp);
             }
             catch (Exception e)
             {

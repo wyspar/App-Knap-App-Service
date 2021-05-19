@@ -17,12 +17,26 @@ namespace AKAppBL
         }
         Task<Application> IAppBL.AddAnAppAsync(Application application)
         {
+/*            Task<Application> foundApp = appDL.GetAnAppAsync(application);
+
+            if (foundApp.Result != null)
+            {
+                System.Diagnostics.Debug.WriteLine(foundApp.Result.FirstName);
+                System.Diagnostics.Debug.WriteLine(foundApp.Result.ID);
+                return foundApp;
+            }
+            System.Diagnostics.Debug.WriteLine(application.FirstName);*/
             return appDL.AddAnAppAsync(application);
         }
 
-        Task<Application> IAppBL.DeleteAnAppAsync(Application applicaton)
+        Task<Application> IAppBL.DeleteAnAppAsync(Application application)
         {
-            return appDL.DeleteAnAppAsync(applicaton);
+            Task<Application> foundApp = appDL.GetAnAppAsync(application);
+            if (foundApp != null)
+            {
+                return appDL.DeleteAnAppAsync(application); ;
+            }
+            return null;
         }
 
         Task<List<Application>> IAppBL.GetAllAppsAsync()
@@ -30,14 +44,14 @@ namespace AKAppBL
             return appDL.GetAllAppsAsync();
         }
 
-        Task<Application> IAppBL.GetAnAppAsync(Application applicaton)
+        Task<Application> IAppBL.GetAnAppAsync(Application application)
         {
-            return appDL.GetAnAppAsync(applicaton);
+            return appDL.GetAnAppAsync(application);
         }
 
-        Task<Application> IAppBL.UpdateAnAppAsync(Application applicaton)
+        Task<Application> IAppBL.UpdateAnAppAsync(Application application)
         {
-            return appDL.UpdateAnAppAsync(applicaton);
+            return appDL.UpdateAnAppAsync(application);
         }
     }
 }
