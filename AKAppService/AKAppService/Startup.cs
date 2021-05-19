@@ -9,11 +9,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using AKAppBL;
+using AKAppDL;
+using Microsoft.EntityFrameworkCore;
 
 namespace AKAppService
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,6 +37,21 @@ namespace AKAppService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AKAppService", Version = "v1" });
             });
+            services.AddCors(
+            options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+            services.AddDbContext<AKAppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppKnapDB")));
+            services.AddScoped<IAppRepoDB, AppRepoDB>();
+            services.AddScoped<IAppBL, AppBL>();
+            //services.AddScoped<BlobServiceClient>(sp => new BlobServiceClient(Configuration.GetConnectionString("BlobStorage")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +63,13 @@ namespace AKAppService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AKAppService v1"));
             }
+
+            app.UseCors(x =>
+                x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
 
             app.UseHttpsRedirection();
 

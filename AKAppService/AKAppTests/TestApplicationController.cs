@@ -23,7 +23,7 @@ namespace AKAppTests
         public void CreateAppTest()
         {
             var mockRepo = new Mock<IAppBL>();
-            var controller = new ApplicationController();
+            var controller = new ApplicationController((AKAppBL.IAppBL)mockRepo.Object);
 
             Application application = new Application();
             application.FirstName = "dog";
