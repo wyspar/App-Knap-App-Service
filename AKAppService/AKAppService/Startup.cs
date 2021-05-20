@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using AKAppBL;
 using AKAppDL;
 using Microsoft.EntityFrameworkCore;
+using Azure.Storage.Blobs;
 
 namespace AKAppService
 {
@@ -51,7 +52,7 @@ namespace AKAppService
             services.AddDbContext<AKAppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppKnapDB")));
             services.AddScoped<IAppRepoDB, AppRepoDB>();
             services.AddScoped<IAppBL, AppBL>();
-            //services.AddScoped<BlobServiceClient>(sp => new BlobServiceClient(Configuration.GetConnectionString("BlobStorage")));
+            services.AddScoped<BlobServiceClient>(sp => new BlobServiceClient(Configuration.GetConnectionString("BlobStorage")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

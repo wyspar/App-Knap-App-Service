@@ -10,6 +10,7 @@ namespace AKAppTests
         [InlineData("douglas","richardson","wyspar@gmail.com")]
         [InlineData("rob","whit","no@no")]
         [InlineData(null,null,null)]
+        //Checks to see if an application is valid when it is created
         public void ApplicationShouldBeValid(string firstName, string lastName, string email)
         {
             Application application = new Application();
@@ -42,6 +43,7 @@ namespace AKAppTests
         [Theory]
         [InlineData("Columns",1000,true)]
         [InlineData(null, -12, true)]
+        //Checks to see if location is valid when it is being created
         public void LocationShouldBeValid(string name, int cost, bool rent)
         {
             Location location = new Location();
@@ -67,6 +69,7 @@ namespace AKAppTests
         [Theory]
         [InlineData("myId", 1, 1)]
         [InlineData(" ", 0, -3)]
+        //An upload should be valid
         public void UploadShouldBeValid(string filename, int blobID, int applicationID)
         {
             Upload upload = new Upload();

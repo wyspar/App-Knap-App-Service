@@ -15,12 +15,32 @@ namespace AKAppDL
         {
             this.aKAppDBContext = aKAppDBContext;
         }
+
+        //Add an application to the database
         async Task<Application> IAppRepoDB.AddAnAppAsync(Application applicaton)
         {
+            //Find a location or address first
+/*            Address foundAdd = await aKAppDBContext.Address
+                .AsNoTracking()
+                .FirstOrDefaultAsync(add => add.Street.Equals(applicaton.Location.Address.Street));*/
+            Location foundLoc = await aKAppDBContext.Location
+                .Include(app => app.Address)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(loc => loc.ID == applicaton.Location.ID);
+
+            if (foundLoc != null)
+            {
+/*                System.Diagnostics.Debug.WriteLine(foundLoc.Name);
+                System.Diagnostics.Debug.WriteLine(foundLoc.ID);*/
+                aKAppDBContext.Entry(applicaton.Location).State = EntityState.Unchanged;
+                aKAppDBContext.Entry(applicaton.Location.Address).State = EntityState.Unchanged;
+            }
             await aKAppDBContext.Application.AddAsync(applicaton);
             await aKAppDBContext.SaveChangesAsync();
             return applicaton;
         }
+
+        //Deletes an application from the db
         async Task<Application> IAppRepoDB.DeleteAnAppAsync(Application applicaton)
         {
             aKAppDBContext.Application.Remove(applicaton);
@@ -37,14 +57,18 @@ namespace AKAppDL
 
             return oldApp;
         }
-        async Task<Application> IAppRepoDB.GetAnAppAsync(Application applicaton)
+
+        //Get an application from the db by the id
+        async Task<Application> IAppRepoDB.GetAnAppByIDAsync(int appID)
         {
             return await aKAppDBContext.Application
                 .Include(app => app.Location)
                 .Include(app => app.Uploads)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(app => app.ID == applicaton.ID);
+                .FirstOrDefaultAsync(app => app.ID == appID);
         }
+
+        //Get all applications in the db
         public async Task<List<Application>> GetAllAppsAsync()
         {
             return await aKAppDBContext.Application

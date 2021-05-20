@@ -31,7 +31,7 @@ namespace AKAppBL
 
         Task<Application> IAppBL.DeleteAnAppAsync(Application application)
         {
-            Task<Application> foundApp = appDL.GetAnAppAsync(application);
+            Task<Application> foundApp = appDL.GetAnAppByIDAsync(application.ID);
             if (foundApp != null)
             {
                 return appDL.DeleteAnAppAsync(application); ;
@@ -44,9 +44,9 @@ namespace AKAppBL
             return appDL.GetAllAppsAsync();
         }
 
-        Task<Application> IAppBL.GetAnAppAsync(Application application)
+        Task<Application> IAppBL.GetAnAppByIDAsync(int appID)
         {
-            return appDL.GetAnAppAsync(application);
+            return appDL.GetAnAppByIDAsync(appID);
         }
 
         Task<Application> IAppBL.UpdateAnAppAsync(Application application)

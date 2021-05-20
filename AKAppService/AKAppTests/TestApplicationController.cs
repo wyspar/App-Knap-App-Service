@@ -7,18 +7,23 @@ using Moq;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Net;
+using Xunit.Abstractions;
 
 namespace AKAppTests
 {
     public class TestApplicationController
     {
         private Mock<IAppBL> appBLMock;
-
-        public TestApplicationController()
+        private readonly ITestOutputHelper output;
+        public TestApplicationController(ITestOutputHelper output)
         {
             appBLMock = new Mock<IAppBL>();
+            this.output = output;
         }
 
+        //Test to see if the controller can create an application
         [Fact]
         public void CreateAppTest()
         {
@@ -32,12 +37,16 @@ namespace AKAppTests
             application.Location = new Location();
             application.Location.Address = new Address();
 
-            var result = controller.AddAnAppAsync(application);
+            var newApp  = controller.AddAnAppAsync(application);
 
             //Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(viewResult.ViewData.Model);
-            Assert.Equal(1, model.Count());
+            var actionResult = Assert.IsType<Task<IActionResult>>(newApp);
+            System.Diagnostics.Debug.WriteLine(actionResult.Result.ToString());
+            output.WriteLine("My output!!! "+actionResult.Result.ToString());
+     
+            Assert.Equal("Microsoft.AspNetCore.Mvc.CreatedAtActionResult", actionResult.Result.ToString());
+            //var model = Assert.IsAssignableFrom<IEnumerable<Application>>(viewResult.Result);
+            //Assert.Equal("dog",viewResult.);
         }
     }
 }
