@@ -27,6 +27,7 @@ namespace AKAppTests
         [Fact]
         public void CreateAppTest()
         {
+            //Arrange
             var mockRepo = new Mock<IAppBL>();
             var controller = new ApplicationController((AKAppBL.IAppBL)mockRepo.Object);
 
@@ -37,11 +38,11 @@ namespace AKAppTests
             application.Location = new Location();
             application.Location.Address = new Address();
 
+            //Act
             var newApp  = controller.AddAnAppAsync(application);
 
             //Assert
             var actionResult = Assert.IsType<Task<IActionResult>>(newApp);
-            System.Diagnostics.Debug.WriteLine(actionResult.Result.ToString());
             output.WriteLine("My output!!! "+actionResult.Result.ToString());
      
             Assert.Equal("Microsoft.AspNetCore.Mvc.CreatedAtActionResult", actionResult.Result.ToString());

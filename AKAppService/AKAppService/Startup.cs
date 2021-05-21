@@ -52,6 +52,10 @@ namespace AKAppService
             services.AddDbContext<AKAppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppKnapDB")));
             services.AddScoped<IAppRepoDB, AppRepoDB>();
             services.AddScoped<IAppBL, AppBL>();
+            services.AddScoped<IUploadRepoDB, UploadRepoDB>();
+            services.AddScoped<IUploadBL, UploadBL>();
+            services.AddScoped<ILocationRepoDB, LocationRepoDB>();
+            services.AddScoped<ILocationBL, LocationBL>();
             services.AddScoped<BlobServiceClient>(sp => new BlobServiceClient(Configuration.GetConnectionString("BlobStorage")));
         }
 

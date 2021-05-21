@@ -10,7 +10,7 @@ namespace AKAppModels
         private string email;
         private int id;
         private Location location;
-        private List<Upload> uploads;
+        //private List<Upload> uploads;
         public string FirstName
         {
             get { return firstName; }
@@ -66,18 +66,18 @@ namespace AKAppModels
                 location = value;
             }
         }
-        public List<Upload> Uploads
+/*        public List<Upload> Uploads
         {
             get { return uploads; }
             set
             {
-/*                if (value == null)
+                if (value == null)
                 {
                     throw new ArgumentNullException();
-                }*/
+                }
                 uploads = value;
             }
-        }
+        }*/
 
         public int ID { 
             get { return id; }

@@ -36,8 +36,6 @@ namespace AKAppDL
                 .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Application>()
-                .HasMany(s => s.Uploads);
-            modelBuilder.Entity<Application>()
                 .HasOne(l => l.Location);
             modelBuilder.Entity<Location>()
                 .HasOne(a => a.Address);

@@ -63,7 +63,6 @@ namespace AKAppDL
         {
             return await aKAppDBContext.Application
                 .Include(app => app.Location)
-                .Include(app => app.Uploads)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(app => app.ID == appID);
         }
